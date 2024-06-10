@@ -5,8 +5,8 @@ import 'package:tech_lar/lampada.dart';
 import 'package:tech_lar/porta.dart';
 import 'package:tech_lar/addComodo.dart';
 
-const double minWidth = 350;
-const double minHeight = 350;
+const double minWidth = 320;
+const double minHeight = 320;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -17,7 +17,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool notification = false;
+  void DesativarNotificacao() {
+    setState(() {
+      notification = !notification;
+    });
+  }
+
   bool _janela = false;
   bool _lampada = false;
   bool _porta = false;
@@ -48,26 +55,26 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         return Scaffold(
+          backgroundColor: Color.fromARGB(255, 31, 31, 31),
+          key: _scaffoldKey,
           drawer: Drawer(
+            backgroundColor: Color.fromARGB(255, 31, 31, 31),
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(200, 19, 124, 199),
-                      //roxo - 53/51/205
-                      //azulClaro - 19/124/190
-                      //roxoClaro - 111/99/243
-                      //cinza - 71/72/72
-                      //azulMaisClaro - 110/237/218
-                    ),
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  color: Color.fromARGB(198, 44, 47, 53),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Olá, Fulano!',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 19, 124, 199),
                             fontSize: 25,
                           ),
                         ),
@@ -77,59 +84,74 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           icon: Icon(
                             Icons.arrow_back,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 19, 124, 199),
                           ),
                         ),
                       ],
-                    )),
+                    ),
+                  ),
+                ),
                 ListTile(
-                  title: Text('Perfil'),
+                  title: Text(
+                    'Perfil',
+                    style: TextStyle(color: Color.fromARGB(255, 19, 124, 199)),
+                  ),
                   onTap: () {},
                 ),
                 ListTile(
-                  title: Text('Configurações'),
+                  title: Text(
+                    'Configurações',
+                    style: TextStyle(color: Color.fromARGB(255, 19, 124, 199)),
+                  ),
                   onTap: () {},
                 ),
                 ListTile(
-                  title: Text('Ajuda'),
+                  title: Text(
+                    'Ajuda',
+                    style: TextStyle(color: Color.fromARGB(255, 19, 124, 199)),
+                  ),
                   onTap: () {},
                 )
               ],
             ),
           ),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            automaticallyImplyLeading: true,
-            title: Text(
-              'Tech-Lar',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.w100,
-                letterSpacing: 0,
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  (notification == false)
-                      ? Icons.notifications_sharp
-                      : Icons.notifications_off,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  setState(() {
-                    notification = !notification;
-                  });
-                },
-              ),
-            ],
-            centerTitle: true,
-            elevation: 1,
-          ),
           body: Center(
             child: ListView(children: [
+              Container(
+                width: double.infinity,
+                height: 65,
+                color: Color.fromARGB(198, 44, 47, 53),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          _scaffoldKey.currentState!.openDrawer();
+                        },
+                        icon: Icon(
+                          Icons.menu,
+                          size: 30,
+                          color: Color.fromARGB(255, 19, 124, 199),
+                        )),
+                    Text(
+                      "TechLar",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Color.fromARGB(255, 19, 124, 199)),
+                    ),
+                    IconButton(
+                      onPressed: DesativarNotificacao,
+                      icon: notification
+                          ? Icon(Icons.notifications_off,
+                              size: 30,
+                              color: Color.fromARGB(255, 19, 124, 199))
+                          : Icon(Icons.notifications,
+                              size: 30,
+                              color: Color.fromARGB(255, 19, 124, 199)),
+                    ),
+                  ],
+                ),
+              ),
               Column(
                 children: [
                   Padding(
@@ -141,21 +163,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       shape: const ContinuousRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      collapsedBackgroundColor: Color.fromARGB(255, 19, 124, 199),
-                      backgroundColor: Colors.blue,
-                      collapsedIconColor: Colors.white,
-                      iconColor: Colors.white,
+                      collapsedBackgroundColor: Color.fromARGB(198, 44, 47, 53),
+                      backgroundColor: Color.fromARGB(199, 16, 17, 19),
+                      collapsedIconColor: Color.fromARGB(255, 19, 124, 199),
+                      iconColor: Color.fromARGB(255, 19, 124, 199),
                       title: Text("Controle Geral",
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 19, 124, 199),
+                              fontSize: 20)),
                       children: [
                         //Janelas
                         SwitchListTile(
                           title: Text("Janelas",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Color.fromARGB(255, 19, 124, 199),
                               )),
-                          activeColor: Colors.blue[100],
+                          activeColor: Colors.blue,
                           value: _janela,
                           onChanged: (bool value) {
                             setState(() {
@@ -163,11 +187,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           },
                         ),
+                        Divider(
+                          thickness: 1,
+                          color: Color.fromARGB(255, 19, 124, 199),
+                        ),
                         //Lampadas
                         SwitchListTile(
                           title: Text("Luzes",
-                              style: TextStyle(color: Colors.white)),
-                          activeColor: Colors.blue[100],
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 19, 124, 199))),
+                          activeColor: Colors.blue,
                           value: _lampada,
                           onChanged: (bool value) {
                             setState(() {
@@ -175,11 +204,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           },
                         ),
+                        Divider(
+                          thickness: 1,
+                          color: Color.fromARGB(255, 19, 124, 199),
+                        ),
                         //Portas
                         SwitchListTile(
                           title: Text("Portas",
-                              style: TextStyle(color: Colors.white)),
-                          activeColor: Colors.blue[100],
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 19, 124, 199))),
+                          activeColor: Colors.blue,
                           value: _porta,
                           onChanged: (bool value) {
                             setState(() {
@@ -202,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 130,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(70),
-                              color: Color.fromARGB(255, 19, 124, 199),
+                              color: Color.fromARGB(198, 44, 47, 53),
                             ),
                             child: IconButton(
                               onPressed: () {
@@ -213,9 +247,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 );
                               },
                               icon: Icon(
-                                  size: 45,
-                                  color: Colors.white,
-                                  Icons.window_outlined),
+                                Icons.window_outlined,
+                                size: 45,
+                                color: Color.fromARGB(255, 19, 124, 199),
+                              ),
                             ),
                           ),
                           Padding(
@@ -225,7 +260,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: 130,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(70),
-                                color: Color.fromARGB(255, 19, 124, 199),
+                                color: Color.fromARGB(198, 44, 47, 53),
                               ),
                               child: IconButton(
                                 onPressed: () {
@@ -237,8 +272,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 icon: Icon(
                                     size: 45,
-                                    color: Colors.white,
-                                    Icons.lightbulb),
+                                    color: Color.fromARGB(255, 19, 124, 199),
+                                    Icons.lightbulb_outline),
                               ),
                             ),
                           ),
@@ -249,7 +284,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: 130,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(70),
-                                color: Color.fromARGB(255, 19, 124, 199),
+                                color: Color.fromARGB(198, 44, 47, 53),
                               ),
                               child: IconButton(
                                 onPressed: () {
@@ -261,8 +296,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 icon: Icon(
                                     size: 45,
-                                    color: Colors.white,
-                                    Icons.door_back_door),
+                                    color: Color.fromARGB(255, 19, 124, 199),
+                                    Icons.door_back_door_outlined),
                               ),
                             ),
                           ),
@@ -275,13 +310,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ]),
           ),
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Color.fromARGB(198, 44, 47, 53),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon:
+                    Icon(Icons.home, color: Color.fromARGB(255, 19, 124, 199)),
                 label: 'Menu',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.add),
+                icon: Icon(Icons.add, color: Color.fromARGB(255, 19, 124, 199)),
                 label: 'Adicionar Cômodo',
               ),
             ],

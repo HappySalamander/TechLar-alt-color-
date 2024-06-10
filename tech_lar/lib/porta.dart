@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const double minWidth = 50;
-const double minHeight = 50;
+const double minWidth = 320;
+const double minHeight = 320;
 
 class Porta extends StatefulWidget {
   @override
@@ -10,6 +10,12 @@ class Porta extends StatefulWidget {
 
 class _PortaState extends State<Porta> {
   bool notification = false;
+  void DesativarNotificacao() {
+    setState(() {
+      notification = !notification;
+    });
+  }
+
   bool _on = false;
   List<String> comodos = ["Sala de Estar", "Acesso Externo", "Garagem"];
   List<bool> switchesState = [false, false, false];
@@ -34,50 +40,47 @@ class _PortaState extends State<Porta> {
         );
       } else {
         return Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back, color: Colors.black, size: 30),
-            ),
-            backgroundColor: Colors.white,
-            title: Text(
-              'Portas',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w100,
-                fontSize: 25,
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  (notification == false)
-                      ? Icons.notifications_sharp
-                      : Icons.notifications_off,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  setState(() {
-                    notification = !notification;
-                  });
-                },
-              ),
-            ],
-            centerTitle: true,
-            elevation: 4,
-          ),
+          backgroundColor: Color.fromARGB(255, 31, 31, 31),
           body: Column(
             children: [
+              Container(
+                width: double.infinity,
+                height: 65,
+                color: Color.fromARGB(198, 44, 47, 53),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 30,
+                          color: Color.fromARGB(255, 19, 124, 199),
+                        )),
+                    Text(
+                      "Portas",
+                      style: TextStyle(color: Color.fromARGB(255, 19, 124, 199), fontSize: 25),
+                    ),
+                    IconButton(
+                      onPressed: DesativarNotificacao,
+                      icon: notification
+                          ? Icon(Icons.notifications_off,
+                              size: 30, color: Color.fromARGB(255, 19, 124, 199))
+                          : Icon(Icons.notifications,
+                              size: 30, color: Color.fromARGB(255, 19, 124, 199)),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Container(
                   width: double.infinity,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 19, 124, 199),
+                    color: Color.fromARGB(198, 44, 47, 53),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -85,20 +88,15 @@ class _PortaState extends State<Porta> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
-                        child: Expanded(
-                          child: Text(
-                            "Trancar todas as portas",
-                            style: TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                color: Colors.white,
-                                fontSize: 20),
-                          ),
+                        child: Text(
+                          "Todas as Portas",
+                          style: TextStyle(color: Color.fromARGB(255, 19, 124, 199), fontSize: 20),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 35),
+                        padding: const EdgeInsets.only(right: 33),
                         child: Switch(
-                          activeColor: Colors.blue[100],
+                          activeColor: Colors.blue,
                           value: _on,
                           onChanged: (bool value) {
                             setState(() {
@@ -123,7 +121,7 @@ class _PortaState extends State<Porta> {
                         width: double.infinity,
                         height: 85,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 19, 124, 199),
+                          color: Color.fromARGB(198, 44, 47, 53),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
@@ -132,10 +130,10 @@ class _PortaState extends State<Porta> {
                             title: Text(
                               comodos[index],
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                                  TextStyle(color: Color.fromARGB(255, 19, 124, 199), fontSize: 20),
                             ),
                             trailing: Switch(
-                              activeColor: Colors.blue[100],
+                              activeColor: Colors.blue,
                               value: switchesState[index],
                               onChanged: (bool value) {
                                 setState(() {
@@ -191,7 +189,9 @@ class _PortaState extends State<Porta> {
                   label: Text("Novo Cômodo",
                       style: TextStyle(color: Colors.white)),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 19, 124, 199),),
+                    backgroundColor: MaterialStatePropertyAll(
+                      Color.fromARGB(255, 19, 124, 199),
+                    ),
                   ),
                 ),
               ),

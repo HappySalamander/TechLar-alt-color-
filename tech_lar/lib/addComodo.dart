@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tech_lar/home.dart';
 
-  const double minWidth = 350;
-  const double minHeight = 350;
+const double minWidth = 350;
+const double minHeight = 350;
 
 class addComodo extends StatefulWidget {
   @override
@@ -10,7 +10,14 @@ class addComodo extends StatefulWidget {
 }
 
 class _addComodo extends State<addComodo> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool notification = false;
+  void DesativarNotificacao() {
+    setState(() {
+      notification = !notification;
+    });
+  }
+
   int _selectedIndex = 1;
   void _onItemTapped(int index) {
     setState(() {
@@ -25,7 +32,15 @@ class _addComodo extends State<addComodo> {
       }
     });
   }
-  List<String> comodos = ["Quarto", "Sala", "Cozinha", "Banheiro", "Garagem", "Corredor"];
+
+  List<String> comodos = [
+    "Quarto",
+    "Sala",
+    "Cozinha",
+    "Banheiro",
+    "Garagem",
+    "Corredor"
+  ];
 
   void adicionarComodo(String novoComodo) {
     setState(() {
@@ -45,179 +60,205 @@ class _addComodo extends State<addComodo> {
           ),
         );
       } else {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 19, 124, 199),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Olá, Fulano!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                )),
-            ListTile(
-              title: Text('Perfil'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Configurações'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Ajuda'),
-              onTap: () {},
-            )
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Tech-Lar',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 25,
-            fontWeight: FontWeight.w100,
-            letterSpacing: 0,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              (notification == false)
-                  ? Icons.notifications_sharp
-                  : Icons.notifications_off,
-              color: Colors.black,
-              size: 30,
-            ),
-            onPressed: () {
-              setState(() {
-                notification = !notification;
-              });
-            },
-          ),
-        ],
-        centerTitle: true,
-        elevation: 1,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: comodos.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 19, 124, 199),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
+        return Scaffold(
+          backgroundColor: Color.fromARGB(255, 31, 31, 31),
+          key: _scaffoldKey,
+          drawer: Drawer(
+            backgroundColor: Color.fromARGB(255, 31, 31, 31),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  color: Color.fromARGB(198, 44, 47, 53),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                comodos[index],
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                            ],
+                        Text(
+                          'Olá, Fulano!',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 19, 124, 199),
+                            fontSize: 25,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Color.fromARGB(255, 19, 124, 199),
                           ),
                         ),
                       ],
                     ),
                   ),
-                );
-              },
+                ),
+                ListTile(
+                  title: Text(
+                    'Perfil',
+                    style: TextStyle(color: Color.fromARGB(255, 19, 124, 199)),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: Text(
+                    'Configurações',
+                    style: TextStyle(color: Color.fromARGB(255, 19, 124, 199)),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: Text(
+                    'Ajuda',
+                    style: TextStyle(color: Color.fromARGB(255, 19, 124, 199)),
+                  ),
+                  onTap: () {},
+                )
+              ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    String novoComodo = "";
-                    return AlertDialog(
-                      title: Text("Novo Cômodo"),
-                      content: TextField(
-                        onChanged: (value) {
-                          novoComodo = value;
+          body: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 65,
+                color: Color.fromARGB(198, 44, 47, 53),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          _scaffoldKey.currentState!.openDrawer();
                         },
-                        decoration: InputDecoration(
-                          hintText: "Nome do cômodo",
+                        icon: Icon(
+                          Icons.menu,
+                          size: 30,
+                          color: Color.fromARGB(255, 19, 124, 199),
+                        )),
+                    Text(
+                      "TechLar",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Color.fromARGB(255, 19, 124, 199)),
+                    ),
+                    IconButton(
+                      onPressed: DesativarNotificacao,
+                      icon: notification
+                          ? Icon(Icons.notifications_off,
+                              size: 30,
+                              color: Color.fromARGB(255, 19, 124, 199))
+                          : Icon(Icons.notifications,
+                              size: 30,
+                              color: Color.fromARGB(255, 19, 124, 199)),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: comodos.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(198, 44, 47, 53),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    comodos[index],
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 19, 124, 199), fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Cancelar"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            adicionarComodo(novoComodo);
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Adicionar"),
-                        ),
-                      ],
                     );
                   },
-                );
-              },
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text("Novo Cômodo", style: TextStyle(color: Colors.white)),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 19, 124, 199),),
+                ),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        String novoComodo = "";
+                        return AlertDialog(
+                          title: Text("Novo Cômodo"),
+                          content: TextField(
+                            onChanged: (value) {
+                              novoComodo = value;
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Nome do cômodo",
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Cancelar"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                adicionarComodo(novoComodo);
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Adicionar"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.add, color: Colors.white),
+                  label: Text("Novo Cômodo",
+                      style: TextStyle(color: Colors.white)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 19, 124, 199),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Menu',
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Color.fromARGB(198, 44, 47, 53),
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home,  color: Color.fromARGB(255, 19, 124, 199)),
+                label: 'Menu',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add,  color: Color.fromARGB(255, 19, 124, 199)),
+                label: 'Adicionar Cômodo',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Color.fromARGB(255, 19, 124, 199),
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Adicionar Cômodo',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 19, 124, 199),
-        onTap: _onItemTapped,
-      ),
-    );
-  }});
-}
+        );
+      }
+    });
+  }
 }
